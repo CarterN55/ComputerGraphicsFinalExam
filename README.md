@@ -7,7 +7,7 @@ Hologram
 <img width="370" height="308" alt="image" src="https://github.com/user-attachments/assets/90b4ce94-63d5-4c92-b4d6-fb43835788fa" />
 <img width="411" height="349" alt="image" src="https://github.com/user-attachments/assets/93b8ecb7-64ee-435f-b8bf-ef2f92e4ce27" />
 
-I used the hologram shader on the ghosts (visualized with a capsule) to show when they are able to be eaten by Pac-Man. In the original game they flash when weakened but for this project I wanted a hologram to show their defences lowering (decending lines on the hologram).
+I used the hologram shader on the ghosts (visualized with a capsule) to show when they are able to be eaten by Pac-Man. In the original game they flash when weakened but for this project I wanted a hologram to show their defences lowering (decending lines on the hologram). Typically a constant effect decending around a character is precieved as a debuff or loss of something, that was the goal for the decending hologram around the ghosts. They are in a weakened state and will try to run from Pac-Man so a weakened "aura" around them helps to show that.
 
 
 **Scrolling**
