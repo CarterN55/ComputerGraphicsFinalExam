@@ -1,5 +1,5 @@
 # ComputerGraphicsFinalExam
-
+**ALL MOVING SHADERS (HOLOGRAM AND SCROLLING) WORK IN THE BUILD**
 **Pac-Man**
 
 <img width="353" height="608" alt="image" src="https://github.com/user-attachments/assets/d5d58657-0aff-40dc-8bd7-76ab328d0245" />
