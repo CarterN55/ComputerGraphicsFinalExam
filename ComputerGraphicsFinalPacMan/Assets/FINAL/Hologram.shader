@@ -8,7 +8,7 @@ Shader "FINAL/Hologram"
         _RimIntensity ("Rim Intensity", Float) = 1.5  // Strength of the rim lighting
         _FresnelPower ("Fresnel Power", Range(1, 5)) = 2.0  // Power for the fresnel rim effect
         _LineSpeed ("Line Speed", Float) = 1.0  // Speed of the scanning lines
-        _LineFrequency ("Line Frequency", Float) = 10.0  // Frequency of scan lines
+        _LineFrequency ("Line Frequency", Float) = 100.0  // Frequency of scan lines
         _Transparency ("Transparency", Range(0, 1)) = 0.5  // Transparency control
     }
 

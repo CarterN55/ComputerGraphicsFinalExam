@@ -1,56 +1,137 @@
-Shader "Custom/Glass"
+Shader "FINAL/Glass"
 {
     Properties
     {
-        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
-        [MainTexture] _BaseMap("Base Map", 2D) = "white"
+        _MainTex ("Texture", 2D) = "white" {}
+        _BumpMap ("Normalmap", 2D) = "bump" {}
+        _ScaleUV ("Scale", Range(1,20)) = 1
+        _BumpExtrusion ("Bump Extrusion", Range(0, 0.1)) = 0.01
+        _FresnelIntensity ("Fresnel Intensity", Range(0, 2)) = 1
+        _EmissionColor ("Emission Color", Color) = (0,0,0,0)
+        _TintIntensity ("Tint Intensity", Range(1, 50)) = 1.5
+
+        // NEW: Transparency slider (0 = fully transparent, 1 = fully opaque)
+        _Transparency ("Transparency", Range(0,1)) = 0.5
     }
 
     SubShader
     {
-        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" }
+        Tags
+        {
+            "Queue"="Transparent"
+            "RenderType"="Transparent"
+            "RenderPipeline"="UniversalPipeline"
+        }
 
         Pass
         {
-            HLSLPROGRAM
+            // Proper blending for transparency + no depth writes
+            Blend SrcAlpha OneMinusSrcAlpha
+            ZWrite Off
+            Cull Back
 
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
-            struct Attributes
+            struct appdata
             {
-                float4 positionOS : POSITION;
-                float2 uv : TEXCOORD0;
+                float4 vertex : POSITION;
+                float2 uv     : TEXCOORD0;
+                float3 normal : NORMAL;
             };
 
-            struct Varyings
+            struct v2f
             {
-                float4 positionHCS : SV_POSITION;
-                float2 uv : TEXCOORD0;
+                float2 uv           : TEXCOORD0;
+                float4 uvgrab       : TEXCOORD1;
+                float2 uvbump       : TEXCOORD2;
+                float4 vertex       : SV_POSITION;
+                float3 viewDirWS    : TEXCOORD3;
+                float3 normalWS     : TEXCOORD4;
             };
 
-            TEXTURE2D(_BaseMap);
-            SAMPLER(sampler_BaseMap);
+            // Textures & samplers
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
+            float4 _MainTex_ST;
 
-            CBUFFER_START(UnityPerMaterial)
-                half4 _BaseColor;
-                float4 _BaseMap_ST;
-            CBUFFER_END
+            TEXTURE2D(_BumpMap);
+            SAMPLER(sampler_BumpMap);
+            float4 _BumpMap_ST;
 
-            Varyings vert(Attributes IN)
+            // Note: Using a "grab" texture as in your original code
+            TEXTURE2D(_GrabTexture);
+            SAMPLER(sampler_GrabTexture);
+            float4 _GrabTexture_TexelSize;
+
+            // Params
+            float  _ScaleUV;
+            float  _BumpExtrusion;
+            float  _FresnelIntensity;
+            float  _TintIntensity;
+            float4 _EmissionColor;
+
+            // NEW: Transparency parameter
+            float  _Transparency;
+
+            v2f vert(appdata v)
             {
-                Varyings OUT;
-                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
-                OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
-                return OUT;
+                v2f o;
+
+                float3 worldPos = TransformObjectToWorld(v.vertex.xyz);
+                float3 normalWS = normalize(TransformObjectToWorldNormal(v.normal));
+
+                // Extrude along original mesh normals
+                worldPos += normalWS * _BumpExtrusion;
+
+                o.vertex = TransformWorldToHClip(worldPos);
+
+                #if UNITY_UV_STARTS_AT_TOP
+                    float scale = -1.0;
+                #else
+                    float scale = 1.0f;
+                #endif
+
+                o.uvgrab.xy = (float2(o.vertex.x, o.vertex.y * scale) + o.vertex.w) * 0.5;
+                o.uvgrab.zw = o.vertex.zw;
+
+                o.uv     = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uvbump = TRANSFORM_TEX(v.uv, _BumpMap);
+
+                o.normalWS  = normalWS;
+                o.viewDirWS = normalize(_WorldSpaceCameraPos - worldPos);
+                return o;
             }
 
-            half4 frag(Varyings IN) : SV_Target
+            half4 frag(v2f i) : SV_Target
             {
-                half4 color = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv) * _BaseColor;
-                return color;
+                // Normal & Fresnel
+                half3 normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, i.uvbump));
+                float3 normalWS = normalize(normalTS + i.normalWS);
+                float viewNormalDot = saturate(dot(i.viewDirWS, normalWS));
+                float fresnelFactor = pow(1.0 - abs(viewNormalDot), _FresnelIntensity);
+
+                // Scene sample + tint
+                half4 col  = SAMPLE_TEXTURE2D(_GrabTexture, sampler_GrabTexture, i.uvgrab.xy / i.uvgrab.w);
+                half4 tint = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+
+                col.rgb += fresnelFactor * tint.rgb;
+                col     *= tint * _TintIntensity;
+
+                // Emission
+                col += _EmissionColor;
+
+                // Optional gamma lift
+                col.rgb = pow(col.rgb, 1.0 / 2.2);
+
+                // Apply transparency slider
+                col.a = _Transparency;
+
+                return col;
             }
             ENDHLSL
         }
