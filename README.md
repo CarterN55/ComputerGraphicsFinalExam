@@ -30,4 +30,4 @@ I used rim lighting on the walls to give them the blue glowing outline that they
 <img width="376" height="166" alt="image" src="https://github.com/user-attachments/assets/f8cf13a7-5da3-4cb4-9791-6f1a2db6cf02" />
 
 
-I used the glass shader/effect on the normal dots to give them a glow effect. The glass allowed them to have a glow due to the tint intensity property being raised from a max of 5 to a max of 50
+I used the glass shader/effect on the normal dots to give them a glow effect. The glass allowed them to have a glow due to the tint intensity property being raised from a max of 5 to a max of 50. Since the dots are the main way the player will get points I wanted them to appear more distinct with a glow besides just some white dots.
