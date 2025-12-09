@@ -14,14 +14,14 @@ I used the hologram shader on the ghosts (visualized with a capsule) to show whe
 
 <img width="293" height="304" alt="image" src="https://github.com/user-attachments/assets/e063e494-3b81-4cc9-aaf2-12dbbb234f5e" />
 
-Its hard to tell in the picture but I used the scrolling shader to create a spiraling effect on the powerup dots (the ones you eat to eat the ghosts) to give them a more impactful look. Sadly they only show the spiral well in the editor and not in game view because it makes them more choppy and not as smooth.
+Its hard to tell in the picture but I used the scrolling shader to create a spiraling effect on the powerup dots (the ones you eat to eat the ghosts) to give them a more impactful look. Sadly they only show the spiral well in the editor and not in game view because it makes them more choppy and not as smooth. Since I didn't have any good images to use for the scrolling I just found a built in Unity image, this is when I found the spiral effect. Because the object is a sphere/rounded instead of a flat surface like a plane it starts the scrolling from the top of the sphere and spirals down the object repeating it as it goes down (pretty much like a screw).
 
 
 **Rim Lighting (Shader from the first half)**
 
 <img width="331" height="468" alt="image" src="https://github.com/user-attachments/assets/eac60b6a-b381-43df-bc73-30ab82b98912" />
 
-I used rim lighting on the walls to give them the blue glowing outline that they have. Opposite to the hologram and scrolling shaders, the rim lighting looks better in the game view compared to the editor view. The outline also appears relative to the camera's position due to the top-down view, so if I were to move it in any direction it would show up more prominetly on that side (you can see the blue outline get thinner the further it is from the middle).
+I used rim lighting on the walls to give them the blue glowing outline that they have. Opposite to the hologram and scrolling shaders, the rim lighting looks better in the game view compared to the editor view. The outline also appears relative to the camera's position due to the top-down view, so if I were to move it in any direction it would show up more prominetly on that side (you can see the blue outline get thinner the further it is from the middle). The outline apperaing smaller or larger depending on the camera angle is probably due to the rim colour being projected on the faces of the walls rather than around the actual object. This could be even cooler if the camera could be wiggled around slightly while playing the game which would show the blue outline constantly shifting like it was almost 3D.
 
 
 **Glass (Shader from the second half)**
