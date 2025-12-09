@@ -19,7 +19,7 @@ Its hard to tell in the picture but I used the scrolling shader to create a spir
 
 **Rim Lighting (Shader from the first half)**
 
-<img width="331" height="468" alt="image" src="https://github.com/user-attachments/assets/eac60b6a-b381-43df-bc73-30ab82b98912" />
+<img width="319" height="464" alt="image" src="https://github.com/user-attachments/assets/41ac1b99-433f-4df7-a0c8-6b82eddf53e5" />
 
 I used rim lighting on the walls to give them the blue glowing outline that they have. Opposite to the hologram and scrolling shaders, the rim lighting looks better in the game view compared to the editor view. The outline also appears relative to the camera's position due to the top-down view, so if I were to move it in any direction it would show up more prominetly on that side (you can see the blue outline get thinner the further it is from the middle). The outline apperaing smaller or larger depending on the camera angle is probably due to the rim colour being projected on the faces of the walls rather than around the actual object. This could be even cooler if the camera could be wiggled around slightly while playing the game which would show the blue outline constantly shifting like it was almost 3D.
 
@@ -30,4 +30,4 @@ I used rim lighting on the walls to give them the blue glowing outline that they
 <img width="376" height="166" alt="image" src="https://github.com/user-attachments/assets/f8cf13a7-5da3-4cb4-9791-6f1a2db6cf02" />
 
 
-I used the glass shader/effect on the normal dots to give them a glow effect. The glass allowed them to have a glow due to the tint intensity property being raised from a max of 5 to a max of 50. Since the dots are the main way the player will get points I wanted them to appear more distinct with a glow besides just some white dots.
+I used the glass shader/effect on the normal dots to give them a glow effect. The glass allowed them to have a glow due to the tint intensity property being raised from a max of 5 to a max of 50. Since the dots are the main way the player will get points I wanted them to appear more distinct with a glow besides just some white dots. Not only did the shader allow me to add a glow effect but it also allowed 
