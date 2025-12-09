@@ -22,3 +22,12 @@ Its hard to tell in the picture but I used the scrolling shader to create a spir
 <img width="328" height="232" alt="image" src="https://github.com/user-attachments/assets/4889810c-92b4-43ee-8adb-c33c23547c2b" />
 
 I used rim lighting on the walls to give them the blue glowing outline that they have. Opposite to the hologram and scrolling shaders, the rim lighting looks better in the game view compared to the editor view. The outline also appears relative to the camera's position due to the top-down view, so if I were to move it in any direction it would show up more prominetly on that side (you can see the blue outline get thinner the further it is from the middle).
+
+
+**Glass (Shader from the second half)**
+
+<img width="205" height="221" alt="image" src="https://github.com/user-attachments/assets/981b4162-7e56-4ace-875e-4a52c8302b9e" />
+<img width="376" height="166" alt="image" src="https://github.com/user-attachments/assets/f8cf13a7-5da3-4cb4-9791-6f1a2db6cf02" />
+
+
+I used the glass shader/effect on the normal dots to give them a glow effect. The glass allowed them to have a glow due to the tint intensity property being raised from a max of 5 to a max of 50
