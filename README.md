@@ -19,7 +19,7 @@ Its hard to tell in the picture but I used the scrolling shader to create a spir
 
 **Rim Lighting (Shader from the first half)**
 
-<img width="328" height="232" alt="image" src="https://github.com/user-attachments/assets/4889810c-92b4-43ee-8adb-c33c23547c2b" />
+<img width="331" height="468" alt="image" src="https://github.com/user-attachments/assets/eac60b6a-b381-43df-bc73-30ab82b98912" />
 
 I used rim lighting on the walls to give them the blue glowing outline that they have. Opposite to the hologram and scrolling shaders, the rim lighting looks better in the game view compared to the editor view. The outline also appears relative to the camera's position due to the top-down view, so if I were to move it in any direction it would show up more prominetly on that side (you can see the blue outline get thinner the further it is from the middle).
 
