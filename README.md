@@ -11,6 +11,7 @@ I used the hologram shader on the ghosts (visualized with a capsule) to show whe
 
 
 **Scrolling**
+
 <img width="293" height="304" alt="image" src="https://github.com/user-attachments/assets/e063e494-3b81-4cc9-aaf2-12dbbb234f5e" />
 
 Its hard to tell in the picture but I used the scrolling shader to create a spiraling effect on the powerup dots (the ones you eat to eat the ghosts) to give them a more impactful look. Sadly they only show the spiral well in the editor and not in game view because it makes them more choppy and not as smooth.
